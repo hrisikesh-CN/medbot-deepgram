@@ -2,7 +2,7 @@
 
 # Create Conda environment with specified Python version
 echo "$(date +'%Y-%m-%d %H:%M:%S') - Creating Conda environment"
-conda create -p ./env python=3.8 -y
+conda create -p ./env python=3.10 -y
 
 # Activate the newly created environment
 echo "$(date +'%Y-%m-%d %H:%M:%S') - Activating Conda environment"
