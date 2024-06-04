@@ -1,0 +1,38 @@
+# Final Pause Detection Module 
+
+## To Run
+
+- Form requirements
+```txt
+appnope==0.1.4
+asyncio==3.4.3
+deepgram-sdk==3.1.4
+fastapi==0.111.0
+fqdn==1.5.1
+httptools==0.6.1
+isoduration==20.11.0
+langchain==0.1.9
+langchain-groq==0.0.1
+langchain-openai==0.0.7
+notebook==7.2.0
+pyaudio==0.2.14
+pydub==0.25.1
+pygame==2.5.2
+python-dotenv==1.0.1
+sounddevice==0.4.6
+uri-template==1.3.0
+uvloop==0.19.0
+watchfiles==0.22.0
+webcolors==1.13
+websocket==0.2.1
+```
+
+- Create Conda env
+```bash
+conda create -p ./env python=3.10 -y
+```
+- Install Requirements
+```bash
+pip install -r requirements.txt 
+```
+
