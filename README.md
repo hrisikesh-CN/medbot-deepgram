@@ -1,3 +1,4 @@
 # base-project-template
 
-This is to be used as a base project template that includes the architecture of the project.
+To run this project, you need to install [FFMPEG](https://phoenixnap.com/kb/install-ffmpeg-ubuntu)
+
