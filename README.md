@@ -9,7 +9,7 @@ To run this project, you need to install [FFMPEG](https://phoenixnap.com/kb/inst
 ```bash
 conda create -p ./env python=3.10 -y
 ```
-- Activate the enviroment
+- Activate the environment
 ```bash
 conda activate ./env
 ```
