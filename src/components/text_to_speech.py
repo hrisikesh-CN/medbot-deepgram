@@ -1,20 +1,17 @@
-import requests
-from dotenv import load_dotenv
+from io import BytesIO
+
 import requests
 from pydub import AudioSegment
 from pydub.playback import play
-from io import BytesIO
-import requests
-import os, sys
 
-load_dotenv()
+from src.constant import *
 
 
 class TextToSpeech:
     def __init__(self):
 
         try:
-            self.api_key = os.getenv("DEEPGRAM_API_KEY")
+            self.api_key = DEEPGRAM_API_KEY
         except Exception:
             raise EnvironmentError("DEEPGRAM_API_KEY is not set")
 
@@ -52,9 +49,3 @@ class TextToSpeech:
         # Play the audio
         print("PLAYING THE AUDIO")
         play(audio)
-
-# # Get audio data
-# if response.status_code == 200:
-#     play_audio_from_bytes(response.content)
-# else:
-#     print("Error fetching audio.")

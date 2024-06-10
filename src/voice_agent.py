@@ -5,14 +5,11 @@ from src.components.text_to_speech import TextToSpeech
 
 class Agent:
     def __init__(self):
-        # self.transcription_response = ""
         self.llm = LanguageModelProcessor()
         self.stt = SpeechToText()
         self.tts = TextToSpeech()
 
     async def main(self):
-        def get_transcription_callback(final_transcription):
-            self.transcription_response = final_transcription
 
         # Loop indefinitely until "goodbye" is detected
         while True:
@@ -24,6 +21,3 @@ class Agent:
             self.tts.play_audio_from_bytes(text=llm_response)
 
 
-            #
-            # # Reset transcription_response for the next loop iteration
-            # self.transcription_response = ""

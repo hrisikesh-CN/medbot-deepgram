@@ -7,29 +7,10 @@ from deepgram import (
     LiveTranscriptionEvents,
     LiveOptions,
     Microphone)
-from dotenv import load_dotenv
-
-load_dotenv()
 
 from src.constant import *
 from src.exception import CustomException
-
-# def py_error_handler(filename, line, function, err, fmt):
-#     None
-
-
-# ERROR_HANDLER_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int, c_char_p)
-# c_error_handler = ERROR_HANDLER_FUNC(py_error_handler)
-
-# asound = cdll.LoadLibrary('libasound.so')
-# asound.snd_lib_error_set_handler(c_error_handler)
-
-# brew install portaudio
-
-# Load environment variables
-
-# Set your Deepgram API Key and desired voice model
-# DG_API_KEY = os.getenv("DEEPGRAM_API_KEY")
+from src.logger import get_logger
 MODEL_NAME = "aura-asteria-en"  # Example model name, change as needed
 
 
@@ -69,6 +50,7 @@ class SpeechToText:
     def __init__(cls):
         cls.transcript_collector = TranscriptCollector()
         cls.final_transcription_response = None
+        cls.logger = get_logger(__name__)
 
     async def get_transcript(cls):
         transcription_complete = asyncio.Event()
@@ -81,35 +63,30 @@ class SpeechToText:
 
             async def on_message(self, result, **kwargs):
                 sentence = result.channel.alternatives[0].transcript
-                confidence = result.channel.alternatives[0].confidence
+                # confidence = result.channel.alternatives[0].confidence
                 if len(sentence) == 0:
                     return
                 if result.is_final:
                     # We need to collect these and concatenate them together when we get a speech_final=true
                     # See docs: https://developers.deepgram.com/docs/understand-endpointing-interim-results
 
-                    # Speech Final means we have detected sufficent silence to consider this end of speech Speech
-                    # final is the lowest latency result as it triggers as soon an the endpointing value has triggered
+                    # Speech Final means we have detected sufficient silence to consider this end of speech
+                    # speech_final is the lowest latency result as it triggers as soon
+                    # an the endpointing value has triggered
+
                     if result.speech_final:
                         cls.transcript_collector.form_final_transcription(speech_final=sentence)
                         final_transcription = cls.transcript_collector.final_transcription
                         print(f"Speech Final: {final_transcription}")
                         cls.final_transcription_response = final_transcription
-                        # callback(cls.final_transcription_response)
                         cls.transcript_collector.reset()
                         transcription_complete.set()
 
-
-
-
                     else:
-                        # These are useful if you need real time captioning and update what the Interim Results produced
+                        # adding parts of the transcription until it reaches the endpoint/pause threshold
                         cls.transcript_collector.add_part(sentence)
-                        # print(f"Is Final: {sentence}")
                 else:
-                    # These are useful if you need real time captioning of what is being spoken
                     print(f"Interim Results: {sentence}")
-                    print("condifence", confidence)
 
             async def on_error(self, error, **kwargs):
                 print(f"\n\n{error}\n\n")
@@ -133,7 +110,6 @@ class SpeechToText:
             dg_connection.on(LiveTranscriptionEvents.Error, on_error)
             dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
-
             options = LiveOptions(
                 language="en-US",
                 model="nova",
@@ -147,7 +123,6 @@ class SpeechToText:
                 utterance_end_ms="1000",
                 vad_events=True,
                 # Time in milliseconds of silence to wait for before finalizing speech
-
                 endpointing=300)
 
             addons = {
