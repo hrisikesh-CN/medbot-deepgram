@@ -1,6 +1,6 @@
-from src.components.speech_to_text import SpeechToText
-from src.components.llm_response import LanguageModelProcessor
-from src.components.text_to_speech import TextToSpeech
+from src.components.audio_io.speech_to_text import SpeechToText
+from src.components.llm_components.llm_response import LanguageModelProcessor
+from src.components.audio_io.text_to_speech import TextToSpeech
 
 
 class Agent:
