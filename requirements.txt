@@ -5,7 +5,7 @@ fastapi==0.111.0
 fqdn==1.5.1
 httptools==0.6.1
 isoduration==20.11.0
-langchain==0.1.9
+langchain~=0.2.3
 langchain-groq==0.0.1
 langchain-openai==0.0.7
 notebook==7.2.0
@@ -20,4 +20,11 @@ watchfiles==0.22.0
 webcolors==1.13
 websocket==0.2.1
 
--e . 
+pyyaml~=6.0.1
+src~=0.0.1
+requests~=2.31.0
+sqlalchemy~=2.0.27
+verboselogs~=1.7
+setuptools~=69.5.1
+
+-e .

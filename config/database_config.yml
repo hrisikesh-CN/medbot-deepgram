@@ -1,0 +1,3 @@
+database:
+  appointments:
+    url: "sqlite:///doctor_appointments.db"
